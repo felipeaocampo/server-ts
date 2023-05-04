@@ -1,13 +1,15 @@
 import express, { Request, Response } from "express";
-import loginRouter from "./routes/loginRoutes";
+import AppRouter from "./AppRouter";
 import cookieSession from "cookie-session";
+
+import "./controllers/LoginController";
 
 const app = express();
 
 app.use(express.urlencoded());
 app.use(cookieSession({ keys: [`adf`] }));
 
-app.use(`/login`, loginRouter);
+app.use(AppRouter.getInstance());
 
 app.get(`/logout`, (req, res) => {
   if (req.session) {
